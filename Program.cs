@@ -10,45 +10,24 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
-// Configure EF Core with MySQL
-// Register CommonContext and UserContext with DI container
-//builder.Services.AddDbContext<CommonDbContext>(options =>
-//    options.UseMySql(
-//        builder.Configuration.GetConnectionString("DefaultConnection"),
-//        ServerVersion.AutoDetect(builder.Configuration.GetConnectionString("DefaultConnection"))
-//    ),
-//    ServiceLifetime.Scoped
-
-//);
 builder.Services.AddDbContext<CommonDbContext>(options =>
     options.UseMySql(
         builder.Configuration.GetConnectionString("DefaultConnection"),
         new MySqlServerVersion(new Version(8, 0, 21))
     ), ServiceLifetime.Scoped); // Scoped means one instance per request
-//builder.Services.AddDbContext<UserContext>(options =>
-//    options.UseMySql(
-//        builder.Configuration.GetConnectionString("DefaultConnection"),
-//        ServerVersion.AutoDetect(builder.Configuration.GetConnectionString("DefaultConnection"))
-//    ),
-//    ServiceLifetime.Scoped
-//);
-//// Register SqlRawHelper
-//builder.Services.AddScoped<SqlRawHelper>();
 
-// Add services to the container.
-//builder.Services.AddControllersWithViews();
 // Register the service
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<ILoginService, LoginService>();
 
 // Add session services
 builder.Services.AddDistributedMemoryCache();
-builder.Services.AddSession(options =>
-{
-    options.IdleTimeout = TimeSpan.FromMinutes(30);
-    options.Cookie.HttpOnly = true;
-    options.Cookie.IsEssential = true;
-});
+//builder.Services.AddSession(options =>
+//{
+//    options.IdleTimeout = TimeSpan.FromMinutes(1);
+//    options.Cookie.HttpOnly = true;
+//    options.Cookie.IsEssential = true;
+//});
 
 // Add authentication and configure cookie authentication
 builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
@@ -57,6 +36,10 @@ builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationSc
         options.LoginPath = "/admin/login"; // Set login path
         options.LogoutPath = "/admin/logout"; // Set logout path
         //options.AccessDeniedPath = "/admin/AccessDenied"; // Set access denied path
+        options.ExpireTimeSpan = TimeSpan.FromMinutes(1); // Set cookie expiration
+        options.Cookie.HttpOnly = true;
+        options.Cookie.IsEssential = true;
+        options.SlidingExpiration = true; // Keep extending session if the user is active
     });
 
 // Add authorization
@@ -74,7 +57,7 @@ if (!app.Environment.IsDevelopment())
 }
 
 // Use session middleware to enable session for the application
-app.UseSession();
+//app.UseSession();
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();

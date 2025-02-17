@@ -1,0 +1,129 @@
+﻿@model MedicalCheckUpASP.Models.User
+
+@{
+    Layout = "_MedicalLayout";
+    ViewData["title"] = "Create New User";
+    var message = ViewBag.Message as string;
+}
+
+<div class="container mt-4 w-50">
+    <div class="card shadow-sm bg-custom-purple">
+        <div class="card-header text-white bg-custom-heavy-purple">
+            <h4 class="mb-0">Create New User</h4>
+        </div>
+        <div class="card-body">
+            @using (Html.BeginForm("Create", "Users", FormMethod.Post, new { @class = "row mb-3"}))
+            {
+                <div class="row g-2">
+                    @if (@message != null)
+                    {
+                        <div id="errorMessage" class="alert alert-danger mt-3">
+                            @message
+                        </div>
+
+                    }
+                    <div class="col-md-6 col-sm-12">
+                        <!-- Name -->
+                        <div class="col-md-12 col-sm-12">
+                            @Html.LabelFor(m => m.UserName, new { @class = "form-label fw-bold" })
+                            <label class="fw-bold text-danger">*</label> <!-- Add the asterisk manually -->
+                            @Html.TextBoxFor(m => m.UserName, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(m => m.UserName, "", new { @class = "text-danger custom-error-message" })
+                        </div>
+                        <!-- Email -->
+                        <div class="col-md-12 col-sm-12">
+                            @Html.LabelFor(m => m.Email, new { @class = "form-label fw-bold" })
+                            <label class="fw-bold text-danger">*</label>
+                            @Html.TextBoxFor(m => m.Email, new { @class = "form-control", type = "email" })
+                            @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger custom-error-message" })
+                        </div>
+                        <!-- Employee Number -->
+                        <div class="col-md-12 col-sm-12">
+                            @Html.LabelFor(m => m.EmployeeNumber, new { @class = "form-label fw-bold" })
+                            <label class="fw-bold text-danger">*</label>
+                            @Html.TextBoxFor(m => m.EmployeeNumber, new { @class = "form-control", placeholder = "E00347 or E-00347" })
+                            @Html.ValidationMessageFor(m => m.EmployeeNumber, "", new { @class = "text-danger custom-error-message" })
+                        </div>
+                        <!-- Role -->
+                        <div class="col-md-12 col-sm-12">
+                            @Html.LabelFor(m => m.Role, new { @class = "form-label fw-bold" })
+                            <label class="fw-bold text-danger">*</label>
+                            @Html.DropDownListFor(m => m.Role, ViewBag.Roles as SelectList, new { @class = "form-select status-dropdown rounded-pill" })
+                        </div>
+                        <!-- Admin/User Status -->
+                        <div class="col-md-12 col-sm-12">
+                            <!-- Bootstrap Toggle Switch -->
+                            <div class="form-check form-switch pt-3">
+                                @Html.CheckBoxFor(m => m.StatusBool, new { @class = "form-check-input text-success", id = "toggleStatus" })
+                                @Html.LabelFor(m => m.Status, "Admin", new {@class="form-check-label ml-2", @for="toggleStatus"})
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-sm-12">
+                        <!-- Password -->
+                        <div class="col-md-12 col-sm-12">
+                            @Html.LabelFor(m => m.Password, new { @class = "form-label fw-bold" })
+                            <label class="fw-bold text-danger">*</label>
+                            @Html.TextBoxFor(m => m.Password, new { type = "password", @class = "form-control" })
+                            @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger custom-error-message" })
+                        </div>
+
+                        <!-- Confirm Password -->
+                        <div class="col-md-12 col-sm-12">
+                            @Html.LabelFor(m => m.ConfirmPassword, new { @class = "form-label fw-bold" })
+                            <label class="fw-bold text-danger">*</label>
+                            @Html.TextBoxFor(m => m.ConfirmPassword, new { type = "password", @class = "form-control" })
+                            @Html.ValidationMessageFor(m => m.ConfirmPassword, "", new { @class = "text-danger custom-error-message" })
+                        </div>
+                    </div>
+
+                    <!-- Buttons -->
+
+                </div>
+                <div class="col-12 d-flex justify-content-center gap-2 mt-3">
+                    <a href="@Url.Action("Index", "Users")" class="btn btn-light px-4">Cancel</a>
+                    <button type="submit" class="btn bg-custom-purple border-custom-heavy-purple px-4">Save</button>
+                    @Html.Raw("<input type='reset' value='Clear' class='btn btn-secondary' />")
+                </div>
+            }
+        </div>
+    </div>
+</div>
+@section Scripts{
+    <script>
+         $('#toggleStatus').change(function() {
+            if (this.checked) {
+                console.log('Switch is ON');
+            } else {
+                console.log('Switch is OFF');
+            }
+        });
+
+    </script>
+}
+
+@section Styles{
+    <style>
+        .form-check-input:checked {
+            background-color: forestgreen;
+            border-color: forestgreen;
+        }
+
+        .form-check-input {
+            height: 2em !important;
+        }
+
+        .form-switch .form-check-input { 
+            width: 4em !important
+        }
+
+        .status-dropdown {
+            border: 2px solid var(--custom-purple) !important;
+        }
+
+        .custom-error-message {
+            font-size: small;
+            font-weight: bold;
+        }
+    </style>
+}

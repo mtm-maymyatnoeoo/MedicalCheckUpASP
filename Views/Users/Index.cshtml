@@ -1,0 +1,92 @@
+﻿@model IEnumerable<MedicalCheckUpASP.Models.User>
+@{
+    Layout = "_MedicalLayout";
+
+}
+<h2>Users List</h2>
+@* Custom Search Form
+@using (Html.BeginForm("Search", "Users", FormMethod.Get, new { @class = "row mb-3", id = "searchForm" }))
+{
+    <!-- Search Box -->
+    <div class="col-md-6 col-sm-12 mb-2 mb-md-0">
+        @Html.TextBox("searchQuery", null, new { @class = "form-control", placeholder = "Search..." })
+    </div>
+
+    <!-- Search Button -->
+    <div class="col-12 col-md-2 mb-3 mb-md-0">
+        <button type="submit" class="btn w-100" style="background-color: lightgrey">
+            <i class="bi bi-search"></i> Search
+        </button>
+    </div>
+
+
+}*@
+<!-- Add Button -->
+<div class="pb-3" style="display: flex; justify-content: flex-end;">
+    @Html.ActionLink("Create New", "New", "Users", null, new { @class = "btn col-md-2 col-12", @style = "color:white; background-color:#2b1133fa" })
+</div>
+<table id="userlist" class="table table-responsive" style="border-bottom-width:0px">
+    <thead>
+        <tr class="fw-bold bg-gradient" style="border-bottom-width:0px; background-color: #977bc8">
+            <th class="no-border-bottom">@Html.Label("Id")</th>
+            <th class="no-border-bottom">@Html.Label("Employee No")</th>
+            <th class="no-border-bottom">@Html.Label("User Name")</th>
+            <th class="no-border-bottom">@Html.Label("Email")</th>
+            <th class="no-border-bottom">@Html.Label("Role")</th>
+            <th class="no-border-bottom">@Html.Label("Status")</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model != null && Model.Any())
+        {
+            foreach (var item in Model)
+            {
+                <tr>
+                    <td>@Html.DisplayFor(modelItem => item.Id)</td>
+                    <td>@Html.DisplayFor(modelItem => item.EmployeeNumber)</td>
+                    <td>@Html.DisplayFor(modelItem => item.UserName)</td>
+                    <td>@Html.DisplayFor(modelItem => item.Email)</td>
+                    <td>@Html.DisplayFor(modelItem => item.Role)</td>
+                    <td>
+                        @{
+                        var isActive = item.Status == Status.Active;
+                        var buttonClass = isActive ? "btn-status-active" : "btn-status-inactive"; // Green button for active, gray for inactive
+                        var buttonText = isActive ? "Active" : "Inactive"; // Button text changes based on status
+                        
+                        }
+
+                        <button type="button" class="btn @buttonClass small" id="toggleStatus">
+                            @buttonText
+                        </button>
+                     </td>
+                </tr>
+            }
+        }
+        else
+        {
+            <tr>
+                <td colspan="4" class="text-center text-muted">No records found</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@section Scripts{
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <script src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            // Initialize DataTable
+            $('#userlist').DataTable();
+        });
+    </script>
+
+}
+@section Styles{
+    <style>
+        .dataTables_filter {
+            margin-bottom: 6px !important;
+        }
+    </style>
+}

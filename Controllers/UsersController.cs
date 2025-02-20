@@ -11,9 +11,9 @@ namespace MedicalCheckUpASP.Controllers
     {
         private readonly IUserService _userService;
 
-        public UsersController(IUserService salesCategoryService)
+        public UsersController(IUserService userService)
         {
-            _userService = salesCategoryService;
+            _userService = userService;
         }
 
         public async Task<IActionResult> Index()
@@ -23,8 +23,8 @@ namespace MedicalCheckUpASP.Controllers
             //var username = User.Identity.Name;
             // Pass it to the view (or ViewData for use in the layout)
             //ViewData["LoginUserName"] = username;
-            var salesCategories = await _userService.GetAllUsersAsync();
-            return View(salesCategories);
+            var users = await _userService.GetAllUsersAsync();
+            return View(users);
         }
 
         public async Task<IActionResult> Details(int id)

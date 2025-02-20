@@ -1,0 +1,59 @@
+﻿@model IEnumerable<MedicalCheckUpASP.Models.Employee>
+@{
+    Layout = "_MedicalLayout";
+
+}
+<div class="container">
+    <h2>Employee List</h2>
+
+    <!-- Add Button -->
+    <div class="pb-3" style="display: flex; justify-content: flex-end;">
+        @Html.ActionLink("Create New", "New", "Employee", null, new { @class = "btn col-md-2 col-12", @style = "color:white; background-color:#2b1133fa" })
+    </div>
+    <table id="employeelist" class="table table-responsive" style="border-bottom-width:0px">
+        <thead>
+            <tr class="fw-bold bg-gradient" style="border-bottom-width:0px; background-color: #977bc8">
+                <th>@Html.Label("Id")</th>
+                <th>@Html.Label("Employee No")</th>
+
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model != null && Model.Any())
+            {
+                foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@Html.DisplayFor(modelItem => item.Id)</td>
+                        <td>@Html.DisplayFor(modelItem => item.EmployeeNumber)</td>
+
+                    </tr>
+                }
+            }
+            else
+            {
+                <tr>
+                    <td colspan="2" class="text-center text-muted">No records found</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+</div>
+@section Scripts {
+
+    <script>
+        $(document).ready(function () {
+            // Initialize DataTable
+
+        });
+    </script>
+
+}
+@section Styles {
+    <style>
+        .dataTables_filter {
+            margin-bottom: 6px !important;
+        }
+    </style>
+}

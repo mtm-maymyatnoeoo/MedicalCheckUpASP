@@ -23,7 +23,6 @@ namespace MedicalCheckUpASP.Models
     [Table("users")]  // Explicitly set the table name
     public class User
     {
-        private UserContext context;
 
         #region Properties Declarations
 
@@ -38,7 +37,7 @@ namespace MedicalCheckUpASP.Models
 
         [Column("user_name")]
         [Required(ErrorMessage = "Username is required.")]
-        public string UserName { get; set; }
+        public required string UserName { get; set; }
 
         #endregion
 
@@ -47,7 +46,7 @@ namespace MedicalCheckUpASP.Models
         [Required(ErrorMessage = "Email is required.")]
         [EmailAddress(ErrorMessage = "Invalid email format.")]
         [Column("email")] // Maps "Email" property to "email" column
-        public string Email { get; set; }
+        public required string Email { get; set; }
 
         #endregion
 
@@ -57,14 +56,14 @@ namespace MedicalCheckUpASP.Models
         [Column("password")]
         [DataType(DataType.Password)]
         [MinLength(6, ErrorMessage = "Password must be at least 6 characters long")]
-        public string Password { get; set; }
+        public required string Password { get; set; }
 
         [NotMapped]
         [MinLength(6, ErrorMessage = "Password must be at least 6 characters long")]
         [Required(ErrorMessage = "Confirm Password is required.")]
         [DataType(DataType.Password)]
         [CompareIfPasswordNotNull("Password", ErrorMessage = "Passwords do not match")]
-        public string ConfirmPassword { get; set; }
+        public required string ConfirmPassword { get; set; }
         #endregion
 
         #region Role
@@ -98,16 +97,16 @@ namespace MedicalCheckUpASP.Models
         [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
 
         [Column("updated_at")]
+        public DateTime UpdatedAt { get; set; } = DateTime.UtcNow;
 
         #endregion
 
         #region EmployeeNumber
-        public DateTime UpdatedAt { get; set; } = DateTime.UtcNow;
 
         [Column("employee_number")]
         [Required(ErrorMessage = "Employee Number is required.")]
         [RegularExpression(@"^E-?\d{5}$", ErrorMessage = "Invalid code format. Correct format: E00347 or E-00347.")]
-        public string EmployeeNumber { get; set; }
+        public required string EmployeeNumber { get; set; }
 
         #endregion
 

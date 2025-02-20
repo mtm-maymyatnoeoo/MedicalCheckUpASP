@@ -20,7 +20,7 @@ namespace MedicalCheckUpASP.Services.LoginService
         // Verify if the password matches the stored encrypted password
         private User? VerifyPassword(string email, string enteredPassword, Role role)
         {
-            var user = _dbContext.User
+            var user = _dbContext.Users
                         .FirstOrDefault(u => u.Email == email && u.Role == role);
 
             if (user == null)

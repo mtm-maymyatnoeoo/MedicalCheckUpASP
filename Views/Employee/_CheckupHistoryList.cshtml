@@ -1,0 +1,33 @@
+﻿@model List<CheckupHistory>
+
+<div class="medical-checkup-history">
+    <table id="checkupHistoryTable" class="table table-responsive table-sm">
+        <thead class="thead-dark">
+            <tr>
+                <th>@Html.Label("PackageName")</th>
+                <th>@Html.Label("Checkup Date")</th>
+                <th>@Html.Label("Deadline Date")</th>
+                <th>@Html.Label("Vaccine")</th>
+                <th>@Html.Label("Check")</th>
+                <th>@Html.Label("Cancel")</th>
+                <th>@Html.Label("Confirm")</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @*@foreach (var checkup in Model)
+            {
+                <tr>
+                    <td>@Html.DisplayFor(modelItem => @checkup.PackageId)</td>
+                    <td>@Html.DisplayFor(modelItem => @checkup.CheckupDate)</td>
+                    <td>@Html.DisplayFor(modelItem => @checkup.IsVaccine)</td>
+                    <td>@Html.DisplayFor(modelItem => @checkup.CheckFlg)</td>
+                    <td></td>
+
+                </tr>
+            }*@     
+        </tbody>
+    </table>
+
+</div>
+

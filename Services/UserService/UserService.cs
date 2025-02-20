@@ -17,17 +17,17 @@ namespace MedicalCheckUpASP.Services.UserService
 
         public async Task<List<User>> GetAllUsersAsync()
         {
-            return await _dbContext.User.ToListAsync();
+            return await _dbContext.Users.ToListAsync();
         }
 
         public async Task<User> GetUserByIdAsync(int id)
         {
-            return await _dbContext.User.FindAsync(id);
+            return await _dbContext.Users.FindAsync(id);
         }
 
         public Task<List<User>> Search(string searchString)
         {
-            var results = _dbContext.User
+            var results = _dbContext.Users
                         .Where(u => EF.Functions.Like(u.UserName, $"%{searchString}%") ||
                                     EF.Functions.Like(u.Email, $"%{searchString}%") ||
                                     EF.Functions.Like(u.EmployeeNumber, $"%{searchString}%"))
@@ -43,7 +43,7 @@ namespace MedicalCheckUpASP.Services.UserService
                 // Encrypt password
                 PasswordEncryptionService encryptionService = new PasswordEncryptionService();
                 user.Password = encryptionService.EncryptPassword(user.Password);
-                await _dbContext.User.AddAsync(user);
+                await _dbContext.Users.AddAsync(user);
                 Console.WriteLine($"CreatedAt: {user.CreatedAt}");
                 Console.WriteLine($"Email: {user.Email}");
                 _dbContext.SaveChanges();
@@ -59,7 +59,7 @@ namespace MedicalCheckUpASP.Services.UserService
         {
             try
             {
-                var duplicateCount = await _dbContext.User
+                var duplicateCount = await _dbContext.Users
                 .CountAsync(e => e.Email == email || e.EmployeeNumber == employeeNumber);
                 return duplicateCount > 0;
 

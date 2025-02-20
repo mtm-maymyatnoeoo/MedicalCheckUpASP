@@ -82,7 +82,7 @@
                 </div>
                 <div class="col-12 d-flex justify-content-center gap-2 mt-3">
                     <a href="@Url.Action("Index", "Users")" class="btn btn-light px-4">Cancel</a>
-                    <button type="submit" class="btn bg-custom-purple border-custom-heavy-purple px-4">Save</button>
+                    <button type="submit" class="btn bg-custom-heavy-purple px-4 text-white">Save</button>
                     @Html.Raw("<input type='reset' value='Clear' class='btn btn-secondary' />")
                 </div>
             }
@@ -91,13 +91,7 @@
 </div>
 @section Scripts{
     <script>
-         $('#toggleStatus').change(function() {
-            if (this.checked) {
-                console.log('Switch is ON');
-            } else {
-                console.log('Switch is OFF');
-            }
-        });
+
 
     </script>
 }
@@ -121,9 +115,5 @@
             border: 2px solid var(--custom-purple) !important;
         }
 
-        .custom-error-message {
-            font-size: small;
-            font-weight: bold;
-        }
     </style>
 }

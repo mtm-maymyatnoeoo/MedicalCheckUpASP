@@ -1,0 +1,74 @@
+﻿@* @model MedicalCheckUpASP.Models.CheckupHistory  // Bind model to modal *@
+
+
+<div class="modal fade" id="inputHistoryModal" tabindex="-1" aria-labelledby="inputModalLabel" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header" style="background-color: #cac2db" back-drop>
+                <h5 class="modal-title" id="inputModalLabel">Enter Checkup History Details</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+
+                <div class="mb-3">
+                    @Html.Label("lblPackage", "Choose Package", new { @class = "form-label fw-bold" })
+                    <select id="packageDropdown" class="form-select rounded-pill">
+                        <option value="">Select a Package</option>
+                    </select>
+                </div>
+                <div class="mb-3">
+                    @Html.Label("lblCheckupDate", "Fill Checkup Date", new { @class = "form-label fw-bold" })
+                    @Html.TextBox("CheckupDate", "", new { @class = "form-control datepicker", autocompelete = "off", required = "required" })
+                </div>
+                <div class="mb-3">
+                    @Html.Label("lblDeadlineDate", "Fill Deadline Date", new { @class = "form-label fw-bold" })
+                    @Html.TextBox("DeadlineDate", "", new { @class = "form-control datepicker", autocomplete = "off", required = "required" })
+                </div>
+                <div class="mb-3">
+                    <div class="row col-md-12 col-sm-12">
+                        <div class="col-md-3 col-sm-3">
+                            @Html.Label("lblIsVaccine", "Is Vaccine B", new { @class = "form-label fw-bold" })
+                        </div>
+                        <div class="col-md-2 col-sm-2">
+                            @Html.CheckBox("chkIsVaccine", false, new { @class = "form-check-input custom-checkbox", style = "margin-top: -2px" })
+                        </div>
+                        <div class="col-md-3 col-sm-3">
+                            @Html.Label("lblIsCheck", "Is Check", new { @class = "form-label fw-bold" })
+                        </div>
+                        <div class="col-md-2 col-sm-2">
+                            @Html.CheckBox("chkIsCheck", true, new { @class = "form-check-input custom-checkbox", style = "margin-top: -2px" })
+                        </div>
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <div class="row col-md-12 col-sm-12">
+                        <div class="col-md-3 col-sm-3">
+                            @Html.Label("lblIsCancel", "Is Cancel", new { @class = "form-label fw-bold" })
+
+                        </div>
+                        <div class="col-md-2 col-sm-2">
+                            @Html.CheckBox("chkIsCancel", false, new { @class = "form-check-input custom-checkbox", style = "margin-top: -2px" })
+                        </div>
+                        <div class="col-md-3 col-sm-3">
+                            @Html.Label("lblAdminConfirm", "Is Confirm", new { @class = "form-label fw-bold" })
+                        </div>
+                        <div class="col-md-2 col-sm-2">
+                            @Html.CheckBox("chkAdminConfirm", true, new { @class = "form-check-input custom-checkbox", style = "margin-top: -2px" })
+                        </div>
+                    </div>
+                </div>
+                <div class="mb-3">
+                    @Html.Label("lblFerry", "Choose Ferry Info", new { @class = "form-label fw-bold" })
+                    <select id="packageDropdown" class="form-select rounded-pill">
+                        <option value="">Select a Package</option>
+                    </select>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" id="btn-add-history">Save</button>
+            </div>
+        </div>
+    </div>
+</div>
+

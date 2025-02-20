@@ -1,5 +1,6 @@
 using System.Configuration;
 using MedicalCheckUpASP.DbContexts;
+using MedicalCheckUpASP.Services.EmployeeService;
 using MedicalCheckUpASP.Services.LoginService;
 using MedicalCheckUpASP.Services.UserService;
 using Microsoft.AspNetCore.Authentication.Cookies;
@@ -19,6 +20,8 @@ builder.Services.AddDbContext<CommonDbContext>(options =>
 // Register the service
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<ILoginService, LoginService>();
+builder.Services.AddScoped<IEmployeeService, EmployeeService>();
+
 
 // Add session services
 builder.Services.AddDistributedMemoryCache();
@@ -36,7 +39,7 @@ builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationSc
         options.LoginPath = "/admin/login"; // Set login path
         options.LogoutPath = "/admin/logout"; // Set logout path
         //options.AccessDeniedPath = "/admin/AccessDenied"; // Set access denied path
-        options.ExpireTimeSpan = TimeSpan.FromMinutes(1); // Set cookie expiration
+        options.ExpireTimeSpan = TimeSpan.FromMinutes(30); // Set cookie expiration
         options.Cookie.HttpOnly = true;
         options.Cookie.IsEssential = true;
         options.SlidingExpiration = true; // Keep extending session if the user is active
@@ -82,7 +85,11 @@ var routes = new (string name, string pattern, object defaults)[]
     ("newUser", "users/new", new {controller = "Users", action = "New"}),
     ("createUser", "users/create", new {controller = "Users", action = "Create"}),
     ("loginAdmin", "admin/login", new {controller = "Login", action = "AdminLogin"}),
-    ("logoutAdmin", "admin/logout", new {controller = "Login", action = "Logout"})
+    ("logoutAdmin", "admin/logout", new {controller = "Login", action = "Logout"}),
+    ("employee", "employee/{action=Index}/{id?}", new { controller = "Employee" }),
+    ("newEmployee", "employee/new", new {controller = "Employee", action = "New"}),
+    ("createEmployee", "employee/create", new {controller = "Employee", action = "Create"}),
+    ("getPackageList", "getpackages", new {controller="Employee", action="GetPackages"})
 };
 
 // Register routes dynamically

@@ -1,0 +1,298 @@
+﻿@model MedicalCheckUpASP.Models.Employee
+
+@{
+    Layout = "_MedicalLayout";
+    ViewData["title"] = "Create New Employee";
+    var message = ViewBag.Message as string;
+}
+
+<div class="container mt-4 w-100" style="max-width: 1400px">
+    <div class="card shadow-sm bg-custom-purple">
+        <div class="card-header text-white bg-custom-heavy-purple">
+            <h4 class="mb-0">Create New Employee</h4>
+        </div>
+        <div class="card-body">
+            @using (Html.BeginForm("Create", "Employee", FormMethod.Post, new { @class = "row mb-3" }))
+            {
+                <div class="row g-2">
+                    @if (@message != null)
+                    {
+                        <div id="errorMessage" class="alert alert-danger mt-3">
+                            @message
+                        </div>
+
+                    }
+                    <!-- Remove Button -->
+                    @* <button id="removeProfileImage" type="button" class="remove-btn">Remove</button> *@
+                    <!-- First Column -->
+                    <div class="col-md-2 col-sm-12">
+                        <!-- Profile -->
+                        <div class="col-md-12 col-sm-12">
+                            <div class="profile-preview">
+                                <img src="~/images/default-profile.png" id="profileImagePreview" alt="Profile Picture" />
+                            </div>
+                            <!-- File Input  -->
+                            <input type="file" name="ProfileImage" style="display: none;" class="form-control" id="profileImageInput" accept="image/*" />
+                            @Html.ValidationMessageFor(m => m.ProfileImage, "", new { @class = "text-danger custom-error-message" })
+                        </div>
+                        <!-- Name -->
+                        <div class="col-md-12 col-sm-12">
+                            @Html.LabelFor(m => m.Name, new { @class = "form-label fw-bold" })
+                            <label class="fw-bold text-danger">*</label> <!-- Add the asterisk manually -->
+                            @Html.TextBoxFor(m => m.Name, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(m => m.Name, "", new { @class = "text-danger custom-error-message" })
+                        </div>
+                        <!-- Employee Number -->
+                        <div class="col-md-12 col-sm-12">
+                            @Html.LabelFor(m => m.EmployeeNumber, new { @class = "form-label fw-bold" })
+                            <label class="fw-bold text-danger">*</label>
+                            @Html.TextBoxFor(m => m.EmployeeNumber, new { @class = "form-control", placeholder = "E00347 or E-00347" })
+                            @Html.ValidationMessageFor(m => m.EmployeeNumber, "", new { @class = "text-danger custom-error-message" })
+                        </div>
+                        <!-- Position -->
+                        <div class="col-md-12 col-sm-12">
+                            @Html.LabelFor(m => m.Position, new { @class = "form-label fw-bold" })
+                            <label class="fw-bold text-danger">*</label> <!-- Add the asterisk manually -->
+                            @Html.TextBoxFor(m => m.Position, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(m => m.Position, "", new { @class = "text-danger custom-error-message" })
+                        </div>
+                        <!-- NRC -->
+                        <div class="col-md-12 col-sm-12">
+                            @Html.LabelFor(m => m.NRC, new { @class = "form-label fw-bold" })
+                            <label class="fw-bold text-danger">*</label> <!-- Add the asterisk manually -->
+                            @Html.TextBoxFor(m => m.NRC, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(m => m.NRC, "", new { @class = "text-danger custom-error-message" })
+                        </div>
+                    </div>
+                    <!-- Second Column -->
+                    <div class="col-md-2 col-sm-12" style="margin-top:168px">
+                        <!-- DOB -->
+                        <div class="col-md-12 col-sm-12">
+                            @Html.LabelFor(m => m.DOB, new { @class = "form-label fw-bold" })
+                            <label class="fw-bold text-danger">*</label> <!-- Add the asterisk manually -->
+                            @Html.TextBoxFor(m => m.DOB, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(m => m.DOB, "", new { @class = "text-danger custom-error-message" })
+                        </div>
+                        <!-- Entry Date -->
+                        <div class="col-md-12 col-sm-12">
+                            @Html.LabelFor(m => m.EntryDate, new { @class = "form-label fw-bold" })
+                            <label class="fw-bold text-danger">*</label> <!-- Add the asterisk manually -->
+                            @Html.TextBoxFor(m => m.EntryDate, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(m => m.EntryDate, "", new { @class = "text-danger custom-error-message" })
+                        </div>
+                        <!-- Resign Date -->
+                        <div class="col-md-12 col-sm-12">
+                            @Html.LabelFor(m => m.ResignDate, new { @class = "form-label fw-bold" })
+                            <label class="fw-bold text-danger">*</label> <!-- Add the asterisk manually -->
+                            @Html.TextBoxFor(m => m.ResignDate, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(m => m.ResignDate, "", new { @class = "text-danger custom-error-message" })
+                        </div>
+
+                    </div>
+
+                    <div class="col-md-8 col-sm-12">
+                        <div>
+                            <h4 style="text-align:center">Medical Checkup History</h4>
+                            <!-- Add checkup history button -->
+                            <div class="col col-sm-12 pt-4 text-end">
+                                <button id="addCheckupHistory" type="button" class="btn btn-light" data-bs-toggle="modal" data-bs-target="#inputHistoryModal">
+                                    <i class="fas fa-plus"></i>
+                                    Add Checkup History
+                                </button>
+                            </div>
+                            <!-- Load Modal Partial View -->
+                            @Html.Partial("_CheckupHistoryModal")
+                        </div>
+                        <div class="row">
+                            @Html.Partial("_CheckupHistoryList", null)
+                        </div>
+                    </div>
+                </div>
+                <!-- Buttons -->
+
+                <div class="col-12 d-flex justify-content-center gap-2 mt-5">
+                    <a href="@Url.Action("Index", "Users")" class="btn btn-light px-4">Cancel</a>
+                    <button type="submit" class="btn bg-custom-heavy-purple px-4 text-white">Save</button>
+                    @Html.Raw("<input type='reset' value='Clear' class='btn btn-secondary' />")
+                </div>
+            }
+        </div>
+    </div>
+</div>
+@section Scripts {
+
+    <script>
+
+        // Trigger file input when image is clicked
+        $('#profileImagePreview').click(function () {
+            $('#profileImageInput').click();
+        });
+
+        // Trigger when file is select
+        $('#profileImageInput').on('change', function (event) {
+            var reader = new FileReader();
+            reader.onload = function () {
+                $('#profileImagePreview').attr('src', reader.result);
+            };
+            reader.readAsDataURL(event.target.files[0]);
+        });
+
+        // Remove the image and reset the file input
+        $('#removeProfileImage').click(function () {
+            $('#profileImagePreview').attr('src', '~/images/default-profile.png'); // Reset to default image
+            $('#profileImageInput').val(''); // Clear the file input
+            $(this).hide(); // Hide the remove button
+        });
+
+        $(document).ready(function(){
+            // Initialize DataTable
+            var table = $('#checkupHistoryTable').DataTable({
+                "scrollY": "400px", // Set the height you want
+                "scrollCollapse": true, // Allows the table to reduce its height when fewer rows exist
+                "paging": false, // Disable pagination if you want to show all rows
+                "searching": false,
+                "ordering": false,
+            });
+
+
+
+            // DatePicker
+            $('.datepicker').datepicker({
+                format: 'mm/dd/yyyy',  // Format for date selection
+                startDate: '-15y',  // Optional: Start date limit
+                endDate: '+15y',  // Optional: End date limit
+                autoclose: true,  // Close the datepicker once a date is selected
+                clearBtn: true, // Enable 'Clear' button
+                allowInputToggle: true // Allows manual input of date
+            });
+
+
+            $("#btn-add-history").on("click", function () {
+                var selectedPackageText = $("#packageDropdown option:selected").text();
+                var selectedPackageVal = $("#packageDropdown").val().trim();
+                var checkupDate = $("#CheckupDate").val().trim();
+                var deadlineDate = $("#DeadlineDate").val().trim();
+
+                var isVaccine = $("#chkIsVaccine").prop("checked")? "Yes" : "No";
+                var isCheck = $("#chkIsCheck").prop("checked")? "Yes" : "No";
+                var isCancel = $("#chkIsCancel").prop("checked")? "Yes" : "No";
+                var adminConfirm = $("#chkAdminConfirm").prop("checked")? "Yes" : "No";
+
+                table.row.add([
+                    selectedPackageText,
+                    checkupDate,
+                    deadlineDate,
+                    isVaccine,
+                    isCheck,
+                    isCancel,
+                    adminConfirm,
+                    '<button class="btn deleteBtn">Delete</button>'
+                ]).draw(false);
+
+                // Clear input fields
+                clearInputs();
+                $("#inputHistoryModal").modal("hide");
+            });
+        });
+
+        // Trigger when modal is show
+        // Binding package dropdownlist
+        $("#inputHistoryModal").on("shown.bs.modal", function () {
+            $.ajax({
+                url: "@Url.Action("GetPackages", "Employee")", // Change controller if needed
+                type: "GET",
+                success: function (data) {
+                    var dropdown = $("#packageDropdown");
+                    dropdown.empty(); // Clear existing options
+                    dropdown.append('<option value="">Select a Package</option>'); // Default option
+                    $.each(data, function (index, item) {
+                        dropdown.append($('<option></option>').val(item.value).text(item.text));
+                    });
+                },
+                error: function () {
+                    alert("Error loading packages");
+                }
+            });
+
+            // clear controls
+            clearInputs();
+        });
+
+    function clearInputs(){
+        $("#DeadlineDate, #CheckupDate").val("");
+
+        $("#chkIsVaccine").prop("checked", false);
+        $("#chkIsCheck").prop("checked", false);
+        $("#chkIsCancel").prop("checked", true);
+        $("#chkAdminConfirm").prop("checked", true);
+    }
+
+    function checkValidation() {
+
+         var selectedPackageIndex = $("#packageDropdown option:selectedIndex").val();
+         var checkupDate = $("#CheckupDate").val().trim();
+         if ( selectedPackageIndex == 0 || checkupDate.empty()) {
+
+         }
+    }
+ 
+
+    </script>
+}
+
+@section Styles {
+    <style>
+        .profile-preview {
+            width: 150px;
+            height: 150px;
+            border: 2px solid #ddd;
+            border-radius: 10px;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 5px auto;
+        }
+
+        .profile-preview img {
+            width: auto;
+            height: 100%;
+            object-fit: contain; /* Ensures the entire image fits inside the box while maintaining aspect ratio */
+            max-width: 100%;
+            max-height: 100%;
+        }
+
+        .remove-btn {
+            background-color: red;
+            color: white;
+            border: none;
+            padding: 4px 8px;
+            font-size: 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 5px 5px;
+        }
+
+        /* Make the checkbox larger */
+        .custom-checkbox {
+            width: 30px; /* Increase width */
+            height: 30px; /* Increase height */
+            margin-left: 10px; /* Adjust space between checkbox and label */
+        }
+        /* Custom check color */
+        .custom-checkbox:checked {
+            background-color: #28a745; /* Green background when checked */
+            border-color: #28a745; /* Green border when checked */
+        }
+
+        .custom-checkbox:checked:after {
+            background-color: #fff; /* White checkmark */
+        }
+
+        .custom-checkbox:not(:checked) {
+            background-color: #ddd; /* Light grey when unchecked */
+            border-color: #bbb; /* Grey border */
+        }
+
+    </style>
+}

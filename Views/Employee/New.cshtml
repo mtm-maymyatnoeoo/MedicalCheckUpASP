@@ -76,7 +76,6 @@
                         <!-- Resign Date -->
                         <div class="col-md-12 col-sm-12">
                             @Html.LabelFor(m => m.Employee.ResignDate, new { @class = "form-label fw-bold" })
-                            <label class="fw-bold text-danger">*</label> <!-- Add the asterisk manually -->
                             @Html.TextBoxFor(m => m.Employee.ResignDate, new { @class = "form-control" })
                             @Html.ValidationMessageFor(m => m.Employee.ResignDate, "", new { @class = "text-danger custom-error-message" })
                         </div>

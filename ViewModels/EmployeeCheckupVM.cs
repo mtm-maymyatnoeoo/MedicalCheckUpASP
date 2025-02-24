@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using MedicalCheckUpASP.Models;
+using Microsoft.DotNet.Scaffolding.Shared.Messaging;
 
 namespace MedicalCheckUpASP.ViewModels
 {
@@ -7,7 +8,7 @@ namespace MedicalCheckUpASP.ViewModels
     {
         public Employee Employee { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Checkup histories is required.")]
         public List<CheckupHistory> CheckupHistories { get; set; }
     }
 }

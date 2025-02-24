@@ -1,12 +1,9 @@
-﻿using System.Collections.Generic;
-using MedicalCheckUpASP.Models;
+﻿using MedicalCheckUpASP.Models;
 using MedicalCheckUpASP.Services.EmployeeService;
-using MedicalCheckUpASP.Services.UserService;
 using MedicalCheckUpASP.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.EntityFrameworkCore.Diagnostics;
 
 namespace MedicalCheckUpASP.Controllers
 {
@@ -52,7 +49,6 @@ namespace MedicalCheckUpASP.Controllers
                 Employee = employee_checkup.Employee,
                 CheckupHistories = null
             };
-            //return View(employee_checkup);
             if (ModelState.IsValid)
             {
                 //await _employeeService.CreateUserAsync(user);
@@ -61,9 +57,6 @@ namespace MedicalCheckUpASP.Controllers
             }
             return View("New", employee_checkup);  // Stay on the same page and show errors
         }
-        //private void InitializeData()
-        //{
-        //    ViewBag.Packages = _employeeService.GetPackageList();
-        //}
+
     }
 }

@@ -1,5 +1,4 @@
-﻿using MedicalCheckUpASP.DbContexts;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace MedicalCheckUpASP.Models

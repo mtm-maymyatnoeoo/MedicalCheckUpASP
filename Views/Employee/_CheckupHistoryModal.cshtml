@@ -1,7 +1,7 @@
 ﻿@* @model MedicalCheckUpASP.Models.CheckupHistory  // Bind model to modal *@
 
 
-<div class="modal fade" id="inputHistoryModal" tabindex="-1" aria-labelledby="inputModalLabel" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
+<div class="modal fade" id="inputHistoryModal" tabindex="-1" aria-labelledby="inputModalLabel" data-bs-backdrop="static" data-bs-keyboard="false">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header" style="background-color: #cac2db" back-drop>
@@ -9,20 +9,23 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
+                <p id="validation-errors" class="text-danger"></p>
 
                 <div class="mb-3">
                     @Html.Label("lblPackage", "Choose Package", new { @class = "form-label fw-bold" })
+                    <label class="fw-bold text-danger">*</label> <!-- Add the asterisk manually -->
                     <select id="packageDropdown" class="form-select rounded-pill">
                         <option value="">Select a Package</option>
                     </select>
                 </div>
                 <div class="mb-3">
                     @Html.Label("lblCheckupDate", "Fill Checkup Date", new { @class = "form-label fw-bold" })
-                    @Html.TextBox("CheckupDate", "", new { @class = "form-control datepicker", autocompelete = "off", required = "required" })
+                    <label class="fw-bold text-danger">*</label> <!-- Add the asterisk manually -->
+                    @Html.TextBox("CheckupDate", "", new { @class = "form-control datepicker", autocompelete = "off" })
                 </div>
                 <div class="mb-3">
                     @Html.Label("lblDeadlineDate", "Fill Deadline Date", new { @class = "form-label fw-bold" })
-                    @Html.TextBox("DeadlineDate", "", new { @class = "form-control datepicker", autocomplete = "off", required = "required" })
+                    @Html.TextBox("DeadlineDate", "", new { @class = "form-control datepicker", autocomplete = "off" })
                 </div>
                 <div class="mb-3">
                     <div class="row col-md-12 col-sm-12">

@@ -32,6 +32,9 @@ namespace MedicalCheckUpASP.Models
         #region Package
         [Column("package_id")]
         public int? PackageId { get; set; }
+
+        [NotMapped]
+        public string PackageText { get; set; }
         #endregion
 
         #region CheckFlg

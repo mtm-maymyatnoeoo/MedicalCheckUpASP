@@ -15,17 +15,46 @@
             </tr>
         </thead>
         <tbody>
-            @*@foreach (var checkup in Model)
-            {
-                <tr>
-                    <td>@Html.DisplayFor(modelItem => @checkup.PackageId)</td>
-                    <td>@Html.DisplayFor(modelItem => @checkup.CheckupDate)</td>
-                    <td>@Html.DisplayFor(modelItem => @checkup.IsVaccine)</td>
-                    <td>@Html.DisplayFor(modelItem => @checkup.CheckFlg)</td>
-                    <td></td>
+            @if (Model != null) {
+                @for(int i=0; i<Model.Count; i++)
+                {
+                    <tr class="history-row">
+                        <td>
+                            <input type="hidden" name="CheckupHistories[@i].PackageId" value="@Model[i].PackageId" />
+                            <input type="hidden" name="CheckupHistories[@i].PackageText" value="@Model[i].PackageText" />
+                            @Model[i].PackageText
+                        </td>
+                        <td>
+                            <input type="hidden" name="CheckupHistories[@i].CheckupDate" value="@Model[i].CheckupDate" />
+                            @Model[i].CheckupDate.ToString("MM-dd-yyyy")
+                        </td>
+                        <td>
+                            <input type="hidden" name="CheckupHistories[@i].DeadlineDate" value="@Model[i].DeadlineDate" />
+                            @Model[i].DeadlineDate.ToString("MM-dd-yyyy")
+                        </td>
+                        <td>
+                            <input type="hidden" name="CheckupHistories[@i].IsVaccine" value = @Model[i].IsVaccine />
+                            <input type="checkbox" disabled  @(Model[i].IsVaccine ? "checked" : "") value = @Model[i].IsVaccine />
+                        <td>
+                            <input type="hidden" name="CheckupHistories[@i].CheckFlg" value = @Model[i].CheckFlg />
+                            <input type="checkbox" disabled  @(Model[i].CheckFlg ? "checked" : "") value=@Model[i].CheckFlg />
+                        </td>
+                        <td>
+                            <input type="hidden" name="CheckupHistories[@i].IsCancel" value = @Model[i].IsCancel />
+                            <input type="checkbox" disabled  @(Model[i].IsCancel ? "checked" : "") value=@Model[i].IsCancel />
+                        </td>
+                        <td>
+                            <input type="hidden" name="CheckupHistories[@i].IsAdminConfirm" value = @Model[i].IsAdminConfirm />
+                            <input type="checkbox" disabled  @(Model[i].IsAdminConfirm ? "checked" : "") value=@Model[i].IsAdminConfirm />
+                        </td>
+                        <td>
+                            <button type="button" class="btn deleteBtn btn-danger btn-sm">Delete</button>
+                        </td>
 
-                </tr>
-            }*@     
+                    </tr>
+                }
+            }
+  
         </tbody>
     </table>
 

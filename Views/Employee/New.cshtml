@@ -1,9 +1,8 @@
-﻿@model MedicalCheckUpASP.Models.Employee
+﻿@model MedicalCheckUpASP.ViewModels.EmployeeCheckupVM
 
 @{
     Layout = "_MedicalLayout";
     ViewData["title"] = "Create New Employee";
-    var message = ViewBag.Message as string;
 }
 
 <div class="container mt-4 w-100" style="max-width: 1400px">
@@ -12,16 +11,10 @@
             <h4 class="mb-0">Create New Employee</h4>
         </div>
         <div class="card-body">
-            @using (Html.BeginForm("Create", "Employee", FormMethod.Post, new { @class = "row mb-3" }))
+            @using (Html.BeginForm("Create", "Employee", FormMethod.Post, new { id= "employeeForm", @class = "row mb-3" }))
             {
                 <div class="row g-2">
-                    @if (@message != null)
-                    {
-                        <div id="errorMessage" class="alert alert-danger mt-3">
-                            @message
-                        </div>
 
-                    }
                     <!-- Remove Button -->
                     @* <button id="removeProfileImage" type="button" class="remove-btn">Remove</button> *@
                     <!-- First Column -->
@@ -32,62 +25,61 @@
                                 <img src="~/images/default-profile.png" id="profileImagePreview" alt="Profile Picture" />
                             </div>
                             <!-- File Input  -->
-                            <input type="file" name="ProfileImage" style="display: none;" class="form-control" id="profileImageInput" accept="image/*" />
-                            @Html.ValidationMessageFor(m => m.ProfileImage, "", new { @class = "text-danger custom-error-message" })
+                            <input type="file" name="ProfileImage" style="display: none;" class="form-control" id="profileImageInput" accept="image" />
+                            @Html.ValidationMessageFor(m => m.Employee.ProfileImage, "", new { @class = "text-danger custom-error-message" })
                         </div>
                         <!-- Name -->
                         <div class="col-md-12 col-sm-12">
-                            @Html.LabelFor(m => m.Name, new { @class = "form-label fw-bold" })
+                            @Html.LabelFor(m => m.Employee.Name, new { @class = "form-label fw-bold" })
                             <label class="fw-bold text-danger">*</label> <!-- Add the asterisk manually -->
-                            @Html.TextBoxFor(m => m.Name, new { @class = "form-control" })
-                            @Html.ValidationMessageFor(m => m.Name, "", new { @class = "text-danger custom-error-message" })
+                            @Html.TextBoxFor(m => m.Employee.Name, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(m => m.Employee.Name, "", new { @class = "text-danger custom-error-message" })
                         </div>
                         <!-- Employee Number -->
                         <div class="col-md-12 col-sm-12">
-                            @Html.LabelFor(m => m.EmployeeNumber, new { @class = "form-label fw-bold" })
+                            @Html.LabelFor(m => m.Employee.EmployeeNumber, new { @class = "form-label fw-bold" })
                             <label class="fw-bold text-danger">*</label>
-                            @Html.TextBoxFor(m => m.EmployeeNumber, new { @class = "form-control", placeholder = "E00347 or E-00347" })
-                            @Html.ValidationMessageFor(m => m.EmployeeNumber, "", new { @class = "text-danger custom-error-message" })
+                            @Html.TextBoxFor(m => m.Employee.EmployeeNumber, new { @class = "form-control", placeholder = "E00347 or E-00347" })
+                            @Html.ValidationMessageFor(m => m.Employee.EmployeeNumber, "", new { @class = "text-danger custom-error-message" })
                         </div>
                         <!-- Position -->
                         <div class="col-md-12 col-sm-12">
-                            @Html.LabelFor(m => m.Position, new { @class = "form-label fw-bold" })
+                            @Html.LabelFor(m => m.Employee.Position, new { @class = "form-label fw-bold" })
                             <label class="fw-bold text-danger">*</label> <!-- Add the asterisk manually -->
-                            @Html.TextBoxFor(m => m.Position, new { @class = "form-control" })
-                            @Html.ValidationMessageFor(m => m.Position, "", new { @class = "text-danger custom-error-message" })
+                            @Html.TextBoxFor(m => m.Employee.Position, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(m => m.Employee.Position, "", new { @class = "text-danger custom-error-message" })
                         </div>
                         <!-- NRC -->
                         <div class="col-md-12 col-sm-12">
-                            @Html.LabelFor(m => m.NRC, new { @class = "form-label fw-bold" })
+                            @Html.LabelFor(m => m.Employee.NRC, new { @class = "form-label fw-bold" })
                             <label class="fw-bold text-danger">*</label> <!-- Add the asterisk manually -->
-                            @Html.TextBoxFor(m => m.NRC, new { @class = "form-control" })
-                            @Html.ValidationMessageFor(m => m.NRC, "", new { @class = "text-danger custom-error-message" })
+                            @Html.TextBoxFor(m => m.Employee.NRC, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(m => m.Employee.NRC, "", new { @class = "text-danger custom-error-message" })
                         </div>
                     </div>
                     <!-- Second Column -->
                     <div class="col-md-2 col-sm-12" style="margin-top:168px">
                         <!-- DOB -->
                         <div class="col-md-12 col-sm-12">
-                            @Html.LabelFor(m => m.DOB, new { @class = "form-label fw-bold" })
+                            @Html.LabelFor(m => m.Employee.DOB, new { @class = "form-label fw-bold" })
                             <label class="fw-bold text-danger">*</label> <!-- Add the asterisk manually -->
-                            @Html.TextBoxFor(m => m.DOB, new { @class = "form-control" })
-                            @Html.ValidationMessageFor(m => m.DOB, "", new { @class = "text-danger custom-error-message" })
+                            @Html.TextBoxFor(m => m.Employee.DOB, new { @class = "form-control", type="date"})
+                            @Html.ValidationMessageFor(m => m.Employee.DOB, "", new { @class = "text-danger custom-error-message" })
                         </div>
                         <!-- Entry Date -->
                         <div class="col-md-12 col-sm-12">
-                            @Html.LabelFor(m => m.EntryDate, new { @class = "form-label fw-bold" })
+                            @Html.LabelFor(m => m.Employee.EntryDate, new { @class = "form-label fw-bold" })
                             <label class="fw-bold text-danger">*</label> <!-- Add the asterisk manually -->
-                            @Html.TextBoxFor(m => m.EntryDate, new { @class = "form-control" })
-                            @Html.ValidationMessageFor(m => m.EntryDate, "", new { @class = "text-danger custom-error-message" })
+                            @Html.TextBoxFor(m => m.Employee.EntryDate, new { @class = "form-control", type="date"})
+                            @Html.ValidationMessageFor(m => m.Employee.EntryDate, "", new { @class = "text-danger custom-error-message" })
                         </div>
                         <!-- Resign Date -->
                         <div class="col-md-12 col-sm-12">
-                            @Html.LabelFor(m => m.ResignDate, new { @class = "form-label fw-bold" })
+                            @Html.LabelFor(m => m.Employee.ResignDate, new { @class = "form-label fw-bold" })
                             <label class="fw-bold text-danger">*</label> <!-- Add the asterisk manually -->
-                            @Html.TextBoxFor(m => m.ResignDate, new { @class = "form-control" })
-                            @Html.ValidationMessageFor(m => m.ResignDate, "", new { @class = "text-danger custom-error-message" })
+                            @Html.TextBoxFor(m => m.Employee.ResignDate, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(m => m.Employee.ResignDate, "", new { @class = "text-danger custom-error-message" })
                         </div>
-
                     </div>
 
                     <div class="col-md-8 col-sm-12">
@@ -100,11 +92,13 @@
                                     Add Checkup History
                                 </button>
                             </div>
+                            @Html.ValidationMessageFor(m => m.CheckupHistories, "", new { @class = "text-danger custom-error-message" })
+
                             <!-- Load Modal Partial View -->
                             @Html.Partial("_CheckupHistoryModal")
                         </div>
                         <div class="row">
-                            @Html.Partial("_CheckupHistoryList", null)
+                            @Html.Partial("_CheckupHistoryList", Model.CheckupHistories)
                         </div>
                     </div>
                 </div>
@@ -145,6 +139,26 @@
         });
 
         $(document).ready(function(){
+
+            // Requrire Validation and Date Validation
+            function checkValidation() {
+                 var selectedPackageIndex = $("#packageDropdown option:selected").index()
+                 var checkupDate = $("#CheckupDate").val().trim();
+                 if ( selectedPackageIndex == 0 || checkupDate == '') {
+                    $('#validation-errors').text("Fill Require Fields");
+                    return false;
+                 } else {
+                     var deadlineDate = $("#DeadlineDate").val().trim();
+                     if (deadlineDate != "" && new Date(deadlineDate) < new Date(checkupDate)) {
+                        $('#validation-errors').html("Checkup date must be greater than deadline date.");
+                        return false;
+
+                     }
+
+                 }
+                 return true;
+            }
+
             // Initialize DataTable
             var table = $('#checkupHistoryTable').DataTable({
                 "scrollY": "400px", // Set the height you want
@@ -154,11 +168,9 @@
                 "ordering": false,
             });
 
-
-
             // DatePicker
             $('.datepicker').datepicker({
-                format: 'mm/dd/yyyy',  // Format for date selection
+                format: 'mm-dd-yyyy',  // Format for date selection
                 startDate: '-15y',  // Optional: Start date limit
                 endDate: '+15y',  // Optional: End date limit
                 autoclose: true,  // Close the datepicker once a date is selected
@@ -166,33 +178,145 @@
                 allowInputToggle: true // Allows manual input of date
             });
 
-
+            // Trigger add history button on modal
             $("#btn-add-history").on("click", function () {
                 var selectedPackageText = $("#packageDropdown option:selected").text();
-                var selectedPackageVal = $("#packageDropdown").val().trim();
+                var selectedPackageValue = $("#packageDropdown option:selected").val();
                 var checkupDate = $("#CheckupDate").val().trim();
                 var deadlineDate = $("#DeadlineDate").val().trim();
 
-                var isVaccine = $("#chkIsVaccine").prop("checked")? "Yes" : "No";
-                var isCheck = $("#chkIsCheck").prop("checked")? "Yes" : "No";
-                var isCancel = $("#chkIsCancel").prop("checked")? "Yes" : "No";
-                var adminConfirm = $("#chkAdminConfirm").prop("checked")? "Yes" : "No";
+                var isVaccine = $("#chkIsVaccine").prop("checked");
+                var isCheck = $("#chkIsCheck").prop("checked");
+                var isCancel = $("#chkIsCancel").prop("checked");
+                var isAdminConfirm = $("#chkAdminConfirm").prop("checked");
 
-                table.row.add([
-                    selectedPackageText,
-                    checkupDate,
-                    deadlineDate,
-                    isVaccine,
-                    isCheck,
-                    isCancel,
-                    adminConfirm,
-                    '<button class="btn deleteBtn">Delete</button>'
-                ]).draw(false);
+                var vaccine = isVaccine? "checked" : "unchecked";
+                var check = isCheck? "checked" : "unchecked";
+                var cancel = isCancel? "checked" : "unchecked";
+                var adminConfirm = isAdminConfirm? "checked" : "unchecked";
 
-                // Clear input fields
-                clearInputs();
-                $("#inputHistoryModal").modal("hide");
+                // var isVaccine = $("#chkIsVaccine").prop("checked")? "Yes" : "No";
+                // var isCheck = $("#chkIsCheck").prop("checked")? "Yes" : "No";
+                // var isCancel = $("#chkIsCancel").prop("checked")? "Yes" : "No";
+                // var adminConfirm = $("#chkAdminConfirm").prop("checked")? "Yes" : "No";
+                if (checkValidation()) {
+                    let rowIndex = $("#checkupHistoryTable tbody tr.history-row").length;
+                            // Add a new row with indexed hidden inputs
+                    let newRowHtml = `
+                        <tr class="history-row">
+                            <td>
+                                <input type="hidden" name="CheckupHistories[${rowIndex}].PackageText" value="${selectedPackageText}" />
+                                <input type="hidden" name="CheckupHistories[${rowIndex}].PackageId" value="${selectedPackageValue}" />
+                                ${selectedPackageText}
+                            </td>
+                            <td>
+                                <input type="hidden" name="CheckupHistories[${rowIndex}].CheckupDate" value="${checkupDate}" />
+                                ${checkupDate}
+                            </td>
+                            <td>
+                                <input type="hidden" name="CheckupHistories[${rowIndex}].DeadlineDate" value="${deadlineDate}" />
+                                ${deadlineDate}
+                            </td>
+                            <td>
+                                <input type="hidden" name="CheckupHistories[${rowIndex}].IsVaccine" value="${isVaccine}" />
+                               <input type="checkbox" disabled ${vaccine} />
+                            </td>
+                            <td>
+                                <input type="hidden" name="CheckupHistories[${rowIndex}].CheckFlg" value="${isCheck}" />
+                                <input type="checkbox" disabled ${check} />
+                            </td>
+                            <td>
+                                <input type="hidden" name="CheckupHistories[${rowIndex}].IsCancel" value="${isCancel}" />
+                                <input type="checkbox" disabled ${cancel} />
+                            </td>
+                            <td>
+                                <input type="hidden" name="CheckupHistories[${rowIndex}].IsAdminConfirm" value="${isAdminConfirm}" />
+                                <input type="checkbox" disabled ${adminConfirm} />
+                            </td>
+                            <td>
+                                <button type="button" class="btn deleteBtn btn-danger btn-sm">Delete</button>
+                            </td>
+                        </tr>`;
+
+                    // Append row to DataTable and form
+                    let newRow = $(newRowHtml).appendTo("#checkupHistoryTable tbody");
+                    table.row.add(newRow).draw(false);
+
+
+                    // table.row.add([
+                    //     selectedPackageText,
+                    //     checkupDate,
+                    //     deadlineDate,
+                    //     isVaccine,
+                    //     isCheck,
+                    //     isCancel,
+                    //     adminConfirm,
+                    //     '<button type="button" class="btn deleteBtn btn-danger btn-sm">Delete</button>'
+                    // ]).draw(false);
+                            // Add a custom class to the newly added row
+                    // $(table.row(':last').node()).addClass('history-row');
+
+                    // Clear input fields
+                    clearInputs();
+                    $("#inputHistoryModal").modal("hide");
+                }
             });
+
+            // Delete event with event delegation
+            $(document).on("click", ".deleteBtn", function () {
+                var row = $(this).closest("tr");
+                var rowIndex = row.index();  // Get the index of the row to delete
+                table.row(row).remove().draw(false); // Remove it from DataTable properly (both internal storage and from table)
+                // After removing the row, update all remaining rows' index values
+                $("#checkupHistoryTable tbody tr.history-row").each(function (newIndex) {
+                    // Update the name attributes for inputs in each remaining row
+                     $(this).find("input[name^='CheckupHistories']").each(function () {
+                     var currentName = $(this).attr("name");
+                     // Replace the old index with the new one
+                     var newName = currentName.replace(/\[\d+\]/, `[${newIndex}]`);
+                     $(this).attr("name", newName);
+                     });
+                });
+            });
+
+            // Form validation and custom validation
+            $("#employeeForma").on("submit", function (e) {
+                console.log("Submit")
+                 // Prevent form submission to handle validation
+                e.preventDefault();
+                console.log("VALIDA")
+                        // Clear previous custom error messages
+                $(".error-message").html('');
+                        // Perform HTML5 validation (required, pattern, etc.)
+                if (!this.checkValidity()) {
+                    // If HTML5 validation fails, the browser will automatically show errors
+                    return; // Prevent further processing, since HTML5 validation is handled automatically
+                }
+                var isValid = true;
+                // Custom validation logic for other fields
+                var errors = [];
+                if ( $("#checkupHistoryTable tbody tr.history-row").length == 0 ){
+                    errors.push("Checkup Required");
+                }
+                        // Display errors for each field
+                if (errors.length > 0) {
+                    errors.forEach(function (error) {
+                        if (error.includes("Checkup Required")) {
+                            $('#history-error').text("Add checkup histories.");
+                        }
+                    });
+                    isValid = false;
+                }
+                // If all validations pass, proceed with form submission
+                if (isValid) {
+                    alert("Form submitted successfully!");
+                   // this.submit(); // Uncomment to submit the form
+                } else {
+                    return;
+                }
+
+            });
+
         });
 
         // Trigger when modal is show
@@ -218,23 +342,20 @@
             clearInputs();
         });
 
-    function clearInputs(){
-        $("#DeadlineDate, #CheckupDate").val("");
+        // When closing the modal, move focus back to the triggering element
+        $("#inputHistoryModal").on("hidden.bs.modal", function () {
+            $("#btn-add-history").focus(); // Move focus to a button outside the modal
+        });
+        function clearInputs(){
+            $("#DeadlineDate, #CheckupDate").val("");
+            $('#validation-errors').text("");
+            $("#chkIsVaccine").prop("checked", false);
+            $("#chkIsCheck").prop("checked", true);
+            $("#chkIsCancel").prop("checked", false);
+            $("#chkAdminConfirm").prop("checked", true);
+        }
 
-        $("#chkIsVaccine").prop("checked", false);
-        $("#chkIsCheck").prop("checked", false);
-        $("#chkIsCancel").prop("checked", true);
-        $("#chkAdminConfirm").prop("checked", true);
-    }
 
-    function checkValidation() {
-
-         var selectedPackageIndex = $("#packageDropdown option:selectedIndex").val();
-         var checkupDate = $("#CheckupDate").val().trim();
-         if ( selectedPackageIndex == 0 || checkupDate.empty()) {
-
-         }
-    }
  
 
     </script>
@@ -257,7 +378,7 @@
         .profile-preview img {
             width: auto;
             height: 100%;
-            object-fit: contain; /* Ensures the entire image fits inside the box while maintaining aspect ratio */
+            object-fit: contain; /* Ensures the entire image fits inside the box while maintaining aspect ratio
             max-width: 100%;
             max-height: 100%;
         }

@@ -38,7 +38,7 @@ namespace MedicalCheckUpASP.Models
 
         [Required(ErrorMessage = "Entry Date is required.")]
         [Column("entry_date")]
-        public DateOnly EntryDate { get; set; }
+        public string EntryDate { get; set; }
 
         #endregion
 
@@ -68,7 +68,7 @@ namespace MedicalCheckUpASP.Models
         [Column("dob")]
         [Required(ErrorMessage = "DOB is required.")]
 
-        public DateOnly DOB { get; set; }
+        public string DOB { get; set; }
 
         #endregion
 
@@ -100,7 +100,6 @@ namespace MedicalCheckUpASP.Models
         public IFormFile? ProfileImage { get; set; } // For file upload
         #endregion
         #region CheckupHistories
-        public ICollection<CheckupHistory> CheckupHistories { get; set; }
         #endregion
         #endregion
     }

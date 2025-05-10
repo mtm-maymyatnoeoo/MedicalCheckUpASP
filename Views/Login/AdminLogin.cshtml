@@ -1,0 +1,50 @@
+﻿@model MedicalCheckUpASP.Models.LoginRequest
+
+@{
+    ViewData["Title"] = "Login";
+    Layout = "_LoginLayout";
+
+}
+
+<h2 class="text-center">@ViewData["Title"]</h2>
+@if (ViewData["ErrorMessage"] != null)
+{
+    <div id="errorMessage" class="alert alert-danger mt-3">
+        @ViewData["ErrorMessage"]
+    </div>
+    <script>
+        setTimeout(function () {
+            var errorMessage = $("#errorMessage");
+            if (errorMessage) {
+                $("#errorMessage").css("display", "none");
+            }
+        }, 5000); // Hide after 5 seconds (5000 milliseconds)
+    </script>
+
+}
+<div class="container mt-4 w-25 bg-gradient rounded text-white" style="background-color:#2b1133fa">
+    @using (Html.BeginForm("AdminLogin", "Login", FormMethod.Post, new { @class = "row"}))
+    {
+        <div class="form-group mt-2">
+            @Html.LabelFor(m => m.Email)
+            @Html.EditorFor(m => m.Email, new { htmlAttributes = new { @class = "form-control", required = "required" } })
+            @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(m => m.Password)
+            @Html.EditorFor(m => m.Password, new { htmlAttributes = new { type= "password", @class = "form-control", required = "required" } })
+            @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
+        </div>
+        <div class="form-group mt-3 mb-4 text-center">
+            <button type="submit" class="btn col-md-4 col-sm-12" style="background-color:mediumpurple">Login</button>
+            <button type="button" class="btn btn-secondary col-md-4 col-sm-12">Cancel</button>
+        </div>
+
+    }
+</div>
+
+
+@section Scripts {
+    @await Html.PartialAsync("_ValidationScriptsPartial")
+}
